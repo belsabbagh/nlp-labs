@@ -1,8 +1,6 @@
 import pandas as pd
-import numpy as np
-import tensorflow as tf
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Embedding, SimpleRNN, Dense
+from tensorflow.keras.layers import Embedding, Dropout, SimpleRNN, Dense
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 
@@ -24,7 +22,8 @@ if __name__ == "__main__":
     model = Sequential(
         [
             Embedding(vocab_size, embedding_dim, input_length=max_sequence_length),
-            SimpleRNN(32),
+            Dropout(0.2),
+            SimpleRNN(32, return_sequences=False),
             Dense(1, activation="sigmoid"),
         ]
     )
